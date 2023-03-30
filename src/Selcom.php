@@ -29,9 +29,7 @@ class Selcom
 
         $this->apiSecret = config('selcom.secret');
 
-        $subdomain = config('selcom.live') ? 'apigw' : 'apigwtest';
-
-        $this->apiUrl = "https://$subdomain.selcommobile.com/v1/";
+        $this->apiUrl = "https://apigw.selcommobile.com/v1/";
     }
 
     public function prefix()

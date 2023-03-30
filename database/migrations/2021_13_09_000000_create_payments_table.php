@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSelcomPaymentsTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSelcomPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('selcom_payments', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->integer('amount');
             $table->string('order_id')->unique();
@@ -36,6 +36,6 @@ class CreateSelcomPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('selcom_payments');
+        Schema::dropIfExists('payments');
     }
 }

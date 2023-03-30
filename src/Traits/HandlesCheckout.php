@@ -65,7 +65,6 @@ trait HandlesCheckout
             'cancel_url' => base64_encode($this->cancelUrl()),
             'webhook' => base64_encode(route('selcom.checkout-callback')),
             'no_of_items' => (int) ($data['items'] ?? 1),
-            'expiry' => $this->paymentExpiry(),
             'header_colour' => $this->paymentGatewayColors()['header'],
             'link_colour' => $this->paymentGatewayColors()['link'],
             'button_colour' => $this->paymentGatewayColors()['button'],
@@ -103,7 +102,7 @@ trait HandlesCheckout
 
         $gatewayBuyerUuid = $data['buyer_uuid'] ?? $response['data'][0]['gateway_buyer_uuid'] ?? null;
 
-        DB::table('selcom_payments')->insert(array_merge(
+        DB::table('payments')->insert(array_merge(
             [
                 'amount' => (int) $data['amount'],
                 'order_id' => $orderId,
@@ -209,13 +208,16 @@ trait HandlesCheckout
 
     public function processCheckoutWebhook()
     {
-        DB::table('selcom_payments')
-            ->where('transid', request('transid'))
+        DB::table('payments')
             ->where('order_id', request('order_id'))
             ->update([
                 'reference' => request('reference'),
                 'payment_status' => request('payment_status'),
                 'updated_at' => now(),
+                'channel' => request('channel'),
+                'updated_at' => now(),
+                'selcom_transaction_id' => request('transid'),
+                'msisdn' => request('phone') ?? '',
             ]);
     }
 
