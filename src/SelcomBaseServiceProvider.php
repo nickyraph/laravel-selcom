@@ -38,7 +38,7 @@ class SelcomBaseServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'selcom');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        // $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     private function registerFacades()
